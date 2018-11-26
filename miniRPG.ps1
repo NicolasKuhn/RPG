@@ -1,4 +1,5 @@
 cls
+cd C:\users\n.kuhn\RPG
 . .\actorsrpg.ps1
 . .\classesrpg.ps1
 . .\creaturesrpg.ps1
