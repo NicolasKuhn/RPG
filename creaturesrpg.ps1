@@ -1,10 +1,10 @@
-. ".\actorsrpg.ps1"
+. .\actorsrpg.ps1
 
 
 function generateName ($kreatur) {
     $trollnamen =  @("Bordis", "Morgor", "Runtal")
     $trolltitel =  @("der Vernichter", "der Blutlose", "Blumenverzehrer")
-    $goblinnamen = @("Mupitz", "Lintar", "Räffgi", "Hanz", "Güstin")
+    $goblinnamen = @("Mupitz", "Lintar", "Reffgi", "Hanz", "Gustin")
     $goblintitel = @("der Wehrlose", "von der Mohnwiese", "Raffzahn", "Flaschenleerer",  "Hinkebein")
 
     switch ( $kreatur )

@@ -1,11 +1,10 @@
-﻿$a = $PSCommandPath
-."H:\12\AWP\MiniRPG_12FI3\actorsrpg.ps1"
-."$root\actorsrpg.ps1"
+﻿. .\actorsrpg.ps1
+
 
 cls
 
 write-host $a
-sleep 20
+
 class Spieler : Akteur { #Oberklasse
   [string]$spielerName
   [int]$erfahrungspunkte = 0

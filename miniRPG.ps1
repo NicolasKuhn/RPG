@@ -1,7 +1,7 @@
-."$PSScriptRoot\classesrpg.ps1"
-
-."H:\12\AWP\MiniRPG_12FI3\classesrpg.ps1"
-."H:\12\AWP\MiniRPG_12FI3\creaturesrpg.ps1"
+cls
+. .\actorsrpg.ps1
+. .\classesrpg.ps1
+. .\creaturesrpg.ps1
 
 ########## initialisiert das dungeon
 $dungeon = [dungeon]::new()
