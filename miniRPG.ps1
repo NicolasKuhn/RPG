@@ -2,11 +2,11 @@
 ."H:\12\AWP\MiniRPG_12FI3\classesrpg.ps1"
 ."H:\12\AWP\MiniRPG_12FI3\creaturesrpg.ps1"
 
-########## initialisiert das Spielbrett 
-$spielbrett = [spielbrett]::new()
-$spielfeld1 = [spielfeld]::new()
-$spielfeld2 = [spielfeld]::new()
-$spielfeld3 = [spielfeld]::new()
+########## initialisiert das dungeon 
+$dungeon = [dungeon]::new()
+$room1 = [room]::new()
+$room2 = [room]::new()
+$room3 = [room]::new()
 
 ########## initialisiert die Spieler
 $spieler1 = [magier]::new("Bob", 101)
@@ -22,16 +22,16 @@ $gegner3 = [goblin]::new($kreaturname, 203)
 $kreaturname = generateName("Troll")
 $gegner4 = [troll]::new($kreaturname, 204)
 
-##########  fügt gegner den spielfeldern hinzu
-[void]$spielfeld1.kreaturen.Add($gegner1)
-[void]$spielfeld2.kreaturen.Add($gegner2)
-[void]$spielfeld2.kreaturen.Add($gegner3)
-[void]$spielfeld3.kreaturen.Add($gegner4)
+##########  fügt gegner den roomsn hinzu
+[void]$room1.kreaturen.Add($gegner1)
+[void]$room2.kreaturen.Add($gegner2)
+[void]$room2.kreaturen.Add($gegner3)
+[void]$room3.kreaturen.Add($gegner4)
 
-########## fügt Spielfelder dem Spielbrett hinzu
-[void]$spielbrett.spielfelder.Add($spielfeld1)
-[void]$spielbrett.spielfelder.Add($spielfeld2)
-[void]$spielbrett.spielfelder.Add($spielfeld3)
+########## fügt rooms dem dungeon hinzu
+[void]$dungeon.rooms.Add($room1)
+[void]$dungeon.rooms.Add($room2)
+[void]$dungeon.rooms.Add($room3)
 
 ########## fügt Helden der Party hinzu
 $party = [party]::new()
@@ -40,11 +40,11 @@ $party = [party]::new()
 
 ########## Gameplay Loop
 
-########## Sind wir nicht über das Spielfeld hinausgeschossen?
-while ($party.feld -lt $spielbrett.spielfelder.Count) {
+########## Sind wir nicht über das room hinausgeschossen?
+while ($party.feld -lt $dungeon.rooms.Count) {
 
-    ########## Sind noch Kreaturen auf dem aktuellen Spielfeld? 
-    while (($spielbrett.spielfelder[$party.feld]).kreaturen.Count -ne 0) {
+    ########## Sind noch Kreaturen auf dem aktuellen room? 
+    while (($dungeon.rooms[$party.feld]).kreaturen.Count -ne 0) {
         ########## Hat die Party noch Aktionen über?
         while ($party.cooldown -eq $false) {
             ########## Spieleraktion
@@ -55,12 +55,12 @@ while ($party.feld -lt $spielbrett.spielfelder.Count) {
     
                 switch ($switch) {
                     "1" {
-                        foreach ($kreatur in $spielbrett.spielfelder[$party.feld].kreaturen) {
+                        foreach ($kreatur in $dungeon.rooms[$party.feld].kreaturen) {
                         Write-Host "ID: "$kreatur.id
                         Write-Host "Name: " $kreatur.kreaturName
                         }
                         $zielID = Read-Host "Ziel-ID eingeben" 
-                        foreach($kreatur in $spielbrett.spielfelder[$party.feld].kreaturen) {
+                        foreach($kreatur in $dungeon.rooms[$party.feld].kreaturen) {
                             if ($kreatur.id -eq $zielID) {
                                 $ziel = $kreatur
                             }
@@ -77,15 +77,15 @@ while ($party.feld -lt $spielbrett.spielfelder.Count) {
         }
         ########## Kreaturenaktionen
         ########## Kreaturencooldown?
-        while ($spielbrett.spielfelder[$party.feld].cooldown -eq $false) {
+        while ($dungeon.rooms[$party.feld].cooldown -eq $false) {
             ########## alle Kreaturen greifen random einen Helden an
-            foreach($kreatur in $spielbrett.spielfelder[$party.feld].kreaturen) {
+            foreach($kreatur in $dungeon.rooms[$party.feld].kreaturen) {
                 $zielAI = Get-Random -InputObject $party.helden
                 $kreatur.angreifen($zielAI, $kreatur.angriffsschaden)
                 $kreatur.setCooldown($true)
             }
             ########## Sind alle Kreaturen auf Cooldown, so wird die Party wieder aktiv gesetzt
-            $spielbrett.spielfelder[$party.feld].checkCooldown($party)
+            $dungeon.rooms[$party.feld].checkCooldown($party)
         }
         ############
     }

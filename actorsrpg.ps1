@@ -43,11 +43,11 @@ class Akteur {
 }   
 
 
-class spielbrett {
-  $spielfelder = [System.Collections.ArrayList]::new()
+class dungeon {
+  $rooms = [System.Collections.ArrayList]::new()
 }
 
-class spielfeld {
+class room {
 
   $kreaturen = [System.Collections.ArrayList]::new()
   $spieler = @{}
@@ -78,7 +78,7 @@ class party {
 function checkHealth($ziel) {
     if ($ziel.lebenspunkte -le 0) {
         Write-Warning "Gegner is doud"
-        $spielbrett.spielfelder[$party.feld].kreaturen.Remove($ziel)
+        $dungeon.rooms[$party.feld].kreaturen.Remove($ziel)
     }
     else {
         Write-Host $ziel.lebenspunkte
