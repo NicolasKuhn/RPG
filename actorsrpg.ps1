@@ -67,7 +67,7 @@ class party {
   
   $cooldown = $false
   $helden = [System.Collections.ArrayList]::new()
-  [int]$feld = 0
+  [int]$room = 0
   checkCooldown() {
         foreach($spieler in $this.helden) {
             $this.cooldown = $spieler.cooldown
@@ -78,7 +78,7 @@ class party {
 function checkHealth($ziel) {
     if ($ziel.lebenspunkte -le 0) {
         Write-Warning "Gegner is doud"
-        $dungeon.rooms[$party.feld].kreaturen.Remove($ziel)
+        $dungeon.rooms[$party.room].kreaturen.Remove($ziel)
     }
     else {
         Write-Host $ziel.lebenspunkte

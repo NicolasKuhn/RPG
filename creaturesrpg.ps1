@@ -1,12 +1,12 @@
-﻿."H:\12\AWP\MiniRPG_12FI3\actorsrpg.ps1"
+. ".\actorsrpg.ps1"
 
-  
+
 function generateName ($kreatur) {
     $trollnamen =  @("Bordis", "Morgor", "Runtal")
     $trolltitel =  @("der Vernichter", "der Blutlose", "Blumenverzehrer")
     $goblinnamen = @("Mupitz", "Lintar", "Räffgi", "Hanz", "Güstin")
-    $goblintitel = @("der Wehrlose", "vom Mohnfeld", "Raffzahn", "Flaschenleerer",  "Hinkebein")
-   
+    $goblintitel = @("der Wehrlose", "von der Mohnwiese", "Raffzahn", "Flaschenleerer",  "Hinkebein")
+
     switch ( $kreatur )
     {
         "Troll"  { $name = Get-Random $trollnamen; $name += " "; $name += Get-Random $trolltitel }
@@ -19,9 +19,9 @@ function generateName ($kreatur) {
   }
 
 class Kreatur : Akteur {
-  
-  [string]$kreaturName 
-  
+
+  [string]$kreaturName
+
 }
 
 class Troll : Kreatur {
