@@ -1,13 +1,9 @@
-﻿. .\actorsrpg.ps1
-
+﻿."H:\12\AWP\MiniRPG_12FI3\actorsrpg.ps1"
 
 cls
-
-write-host $a
-
 class Spieler : Akteur { #Oberklasse
   [string]$spielerName
-  [int]$erfahrungspunkte = 0
+  [int]$level = 0
 }
 
 class Magier : Spieler { #Unterklasse -> erbt $spielername und angreifen()
@@ -20,7 +16,7 @@ class Magier : Spieler { #Unterklasse -> erbt $spielername und angreifen()
   $this.id = $id
   }
   
-  heilen($ziel, $heilwert) {
+  Heilen($ziel, $heilwert) {
     $ziel.setLebenspunkte(-$heilwert)
     $this.setCooldown()
   } 
@@ -37,7 +33,7 @@ class Krieger : Spieler {
   $this.id = $id
   }
 
-  toggleWut() {
+  Wut() {
     if ($this.lebenspunkte -lt 34) {
       $this.wut = $true
     }
@@ -47,7 +43,7 @@ class Krieger : Spieler {
   }
 }
 
-class schuetze : Spieler {
+class Schuetze : Spieler {
   [int]$fokus = 0
 
   schuetze($spielername, $id) {
@@ -57,7 +53,7 @@ class schuetze : Spieler {
   $this.id = $id
   }
 
-  setFokus() {
+  Fokus() {
     $this.fokus++      
   }
   
@@ -70,14 +66,13 @@ class Schurke : Spieler {
 
   schurke($spielername, $id) {
     $this.spielerName = $spielername
+    $this.lebenspunkte = 43
     $this.angriffsschaden = 8
     $this.id = $id
   }
 
-  tarnen() {
+  Tarnen() {
     $this.getarnt = $true
     $this.setCooldown()
   }
 }
-
-

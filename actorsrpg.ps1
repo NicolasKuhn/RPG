@@ -43,21 +43,26 @@ class Akteur {
 }   
 
 
-class dungeon {
-  $rooms = [System.Collections.ArrayList]::new()
+class spielbrett {
+  $spielfelder = [System.Collections.ArrayList]::new()
 }
 
-class room {
+class spielfeld {
 
   $kreaturen = [System.Collections.ArrayList]::new()
   $spieler = @{}
   $cooldown = $false
-  checkCooldown($party) {
-        foreach($kreatur in $this.kreaturen) {
+  checkCooldown($spielbrett, $party) {
+        if ($spielbrett.spielfelder[$party.feld].kreaturen.Count -eq 0) {
+            $this.cooldown = $true
+          }
+        else {
+          foreach($kreatur in $this.kreaturen) {
             $this.cooldown = $kreatur.cooldown
+          }
         }
         if ($this.cooldown) {
-            $party.cooldown = $false
+          $party.cooldown = $false
         }  
   }
 
@@ -67,10 +72,10 @@ class party {
   
   $cooldown = $false
   $helden = [System.Collections.ArrayList]::new()
-  [int]$room = 0
-  checkCooldown() {
-        foreach($spieler in $this.helden) {
-            $this.cooldown = $spieler.cooldown
+  [int]$feld = 0
+  checkCooldown($party) {
+        foreach($spieler in $party.helden) {
+            $party.cooldown = $spieler.cooldown
         }  
   }
 }
@@ -78,7 +83,7 @@ class party {
 function checkHealth($ziel) {
     if ($ziel.lebenspunkte -le 0) {
         Write-Warning "Gegner is doud"
-        $dungeon.rooms[$party.room].kreaturen.Remove($ziel)
+        $spielbrett.spielfelder[$party.feld].kreaturen.Remove($ziel)
     }
     else {
         Write-Host $ziel.lebenspunkte
