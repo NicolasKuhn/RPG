@@ -11,13 +11,33 @@ class Magier : Spieler { #Unterklasse -> erbt $spielername und angreifen()
 
   magier($spielername, $id) {
   $this.spielerName = $spielername
-  $this.lebenspunkte = 35
+  $this.lebenspunkte = 40
   $this.angriffsschaden = 5
+  $this.id = $id
+  }
+
+  Implosion($ziel) {
+    $ziel.setLebenspunkte(($ziel.Lebenspunkte)/3)
+    $this.manapunkte -= 5
+    $this.setCooldown()
+  }
+
+}
+
+class Kleriker : Spieler { #Unterklasse -> erbt $spielername und angreifen()
+  [int]$manapunkte = 10
+  [int]$heilwert = 10
+
+  magier($spielername, $id) {
+  $this.spielerName = $spielername
+  $this.lebenspunkte = 35
+  $this.angriffsschaden = 65
   $this.id = $id
   }
 
   Heilen($ziel, $heilwert) {
     $ziel.setLebenspunkte(-$heilwert)
+    $this.manapunkte -= 2
     $this.setCooldown()
   }
 
@@ -40,6 +60,21 @@ class Krieger : Spieler {
     else {
       $this.wut = $false
     }
+  }
+}
+
+class Ritter : Spieler {
+  [bool]$Schild = $false
+
+  paladin($spielername, $id) {
+    $this.spielername = $spielerName
+    $this.lebenspunkte = 55
+    $this.angriffsschaden = 9
+    $this.id = $id
+  }
+
+  Schild() {
+    $this.Schild = $true
   }
 }
 

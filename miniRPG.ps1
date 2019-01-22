@@ -113,7 +113,7 @@ $CreateHeroRadioPicture4.height  = 20
 $CreateHeroRadioPicture4.location  = New-Object System.Drawing.Point(205,270)
 $CreateHeroRadioPicture4.Font    = 'Microsoft Sans Serif,10'
 $CreateHeroRadioPicture4.Add_Click({
-  if ($CreateHeroRadioPicture4.Checked -and ($CreateHeroTextboxName -not $null) -and ($CreateHeroCombobox.SelectedItem -isnot $null) ) {
+  if ($CreateHeroRadioPicture4.Checked -and -not ($CreateHeroTextboxName -eq $null) -and -not ($CreateHeroCombobox.SelectedItem -eq $null) ) {
     $CreateHeroSubmitButton.Enabled = $true
   }
 })

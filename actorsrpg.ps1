@@ -1,7 +1,7 @@
-﻿<########## 
+﻿<##########
 OBERKLASSE FÜR SPIELER UND KREATUREN MIT GEMEINSAMEN ATTRIBUTEN:
 lebenspunkte
-angriffschaden
+angriffsschaden
 cooldown
 angreifen()
 setlebenspunkte()
