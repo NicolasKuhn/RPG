@@ -1,6 +1,6 @@
-﻿."H:\12\AWP\MiniRPG_12FI3\actorsrpg.ps1"
+﻿.".\actorsrpg.ps1"
 
-  
+
 function generateName ($kreatur) {
     $trollnamen =  @("Bordis", "Morgor", "Runtal")
     $trolltitel =  @("der Vernichter", "der Blutlose", "Blumenverzehrer")
@@ -10,7 +10,7 @@ function generateName ($kreatur) {
     $orktitel = @("der Furchtlose", "Durchfallatem", "der Schreckliche", "der Mannigfaltige", ", Odem des Nordens", "der Kurze", "Furchtbringer")
     $drachennamen = @("Gerillion", "Tiamat", "Alexstraza", "Dardioch")
     $drachentitel = @(", Herr des Lichts", "Weltenender", ", Fürst der grünen Drachenschar", ", Seele des chromatischen Drachenschwarms")
-   
+
     switch ( $kreatur )
     {
         "Troll"  { $name = Get-Random $trollnamen; $name += " "; $name += Get-Random $trolltitel }
@@ -23,9 +23,9 @@ function generateName ($kreatur) {
   }
 
 class Kreatur : Akteur {
-  
-  [string]$kreaturName 
-  
+
+  [string]$kreaturName
+
 }
 
 class Troll : Kreatur {
@@ -60,12 +60,12 @@ class Goblin : Kreatur {
 class Ork : Kreatur {
   [int]$lebenspunkte = 35
   [bool]$verstaerkunggerufen = $false
-  
+
   ork($kreaturname, $id) {
     $this.angriffsschaden = 13
     $this.kreaturname = $kreaturname
     $this.id = $id
-  }  
+  }
 
   verstaerkungRufen($spielbrett, $party) {
     $variable = Get-Random
@@ -91,7 +91,7 @@ class Drache : Kreatur{
     $this.kreaturname = $kreaturname
     $this.id = $id
   }
-  
+
   atemattacke($party) {
     foreach($dude in $party) {
         $dude.setLebenspunkte(10)
@@ -103,5 +103,3 @@ class Drache : Kreatur{
     $self.setLebenspunkte($schaden * -0.5)
   }
 }
-
-

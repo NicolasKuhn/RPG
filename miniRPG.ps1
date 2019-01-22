@@ -1,11 +1,12 @@
-﻿."H:\12\AWP\MiniRPG_12FI3\actorsrpg.ps1"
-."H:\12\AWP\MiniRPG_12FI3\classesrpg.ps1"
-."H:\12\AWP\MiniRPG_12FI3\creaturesrpg.ps1"
+﻿.".\actorsrpg.ps1"
+.".\classesrpg.ps1"
+.".\creaturesrpg.ps1"
+
 [void][System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
 $scriptpath = $MyInvocation.MyCommand.Path
 $dir = Split-Path $scriptpath
 
-########## initialisiert das Spielbrett 
+########## initialisiert das Spielbrett
 $spielbrett = [spielbrett]::new()
 $spielfeld1 = [spielfeld]::new()
 $spielfeld2 = [spielfeld]::new()
@@ -111,7 +112,7 @@ $CreateHeroRadioPicture4.width   = 20
 $CreateHeroRadioPicture4.height  = 20
 $CreateHeroRadioPicture4.location  = New-Object System.Drawing.Point(205,270)
 $CreateHeroRadioPicture4.Font    = 'Microsoft Sans Serif,10'
-$CreateHeroRadioPicture4.Add_Click({ 
+$CreateHeroRadioPicture4.Add_Click({
   if ($CreateHeroRadioPicture4.Checked -and ($CreateHeroTextboxName -not $null) -and ($CreateHeroCombobox.SelectedItem -isnot $null) ) {
     $CreateHeroSubmitButton.Enabled = $true
   }
@@ -124,7 +125,7 @@ $CreateHeroSubmitButton.height   = 30
 $CreateHeroSubmitButton.enabled  = $false
 $CreateHeroSubmitButton.location  = New-Object System.Drawing.Point(60,365)
 $CreateHeroSubmitButton.Font     = 'Microsoft Sans Serif,10'
-$CreateHeroSubmitButton.Add_Click({# $spieler1 =  
+$CreateHeroSubmitButton.Add_Click({# $spieler1 =
  })
 
 $CreateHeroCancelButton          = New-Object system.Windows.Forms.Button
@@ -133,8 +134,8 @@ $CreateHeroCancelButton.width    = 80
 $CreateHeroCancelButton.height   = 30
 $CreateHeroCancelButton.location  = New-Object System.Drawing.Point(240,365)
 $CreateHeroCancelButton.Font     = 'Microsoft Sans Serif,10'
-$CreateHeroCancelButton.Add_Click({ 
-  $CreateHeroForm.Close() 
+$CreateHeroCancelButton.Add_Click({
+  $CreateHeroForm.Close()
 })
 
 $CreateHeroForm.controls.AddRange(@($CreateHeroLabelName,$CreateHeroTextboxName,$CreateHeroCombobox,$CreateHeroLabelClass,$CreateHeroPicture1,$CreateHeroRadioPicture1,$CreateHeroRadioPicture2,$CreateHeroPicture2,$CreateHeroRadioPicture3,$CreateHeroPicture3,$CreateHeroRadioPicture4,$CreateHeroPicture4,$CreateHeroSubmitButton,$CreateHeroCancelButton))
@@ -174,11 +175,11 @@ $SpielerzahlSubmit.width         = 80
 $SpielerzahlSubmit.height        = 30
 $SpielerzahlSubmit.location      = New-Object System.Drawing.Point(35,66)
 $SpielerzahlSubmit.Font          = 'Microsoft Sans Serif,10'
-$SpielerzahlSubmit.Add_Click({ 
+$SpielerzahlSubmit.Add_Click({
   $FormSpielerzahl.Close()
   for ($i = [int]$SpielerzahlCombobox.SelectedItem; $i -gt 0; $i--) {
     createHeroForm
-    } 
+    }
   })
 
 $SpielerzahlCancel               = New-Object system.Windows.Forms.Button
@@ -243,7 +244,7 @@ $party = [party]::new()
 while ($party.feld -lt $spielbrett.spielfelder.Count) {
 
 
-    ########## Sind noch Kreaturen auf dem aktuellen Spielfeld? 
+    ########## Sind noch Kreaturen auf dem aktuellen Spielfeld?
     while (($spielbrett.spielfelder[$party.feld]).kreaturen.Count -ne 0) {
         ########## Hat die Party noch Aktionen über?
         while ($party.cooldown -eq $false) {
@@ -256,11 +257,11 @@ while ($party.feld -lt $spielbrett.spielfelder.Count) {
                 $zielString = ""
                 $switch = ""
                 $special = (Get-Member -InputObject $spieler -MemberType Method | where Name -In ("heilen", "Wut", "Fokus", "Tarnen")).Name
-                
+
                 while ($switch -eq "") {
                 $switch = [Microsoft.VisualBasic.Interaction]::InputBox("Aktion wählen" + "`n" + "1. Angreifen" + "`n" + "2. Spezialfähigkeit: " + $special , $spieler.spielerName , "Aktion eingeben")
                 }
-                                    
+
                 switch ($switch) {
                     "1" {
                         foreach ($kreatur in $spielbrett.spielfelder[$party.feld].kreaturen) {
@@ -271,18 +272,18 @@ while ($party.feld -lt $spielbrett.spielfelder.Count) {
                         $zielString += $kreatur.kreaturName
                         $zielString += "`n"
                         }
-                                                
+
                         $zielID = ""
-                        while ($zielID -eq "") { 
+                        while ($zielID -eq "") {
                         $zielID = [Microsoft.VisualBasic.Interaction]::InputBox($zielString, "Ziel wählen", "Ziel eingeben")
                         }
-                        
+
                         foreach($kreatur in $spielbrett.spielfelder[$party.feld].kreaturen) {
                             if ($kreatur.id -eq $zielID) {
                                 $ziel = $kreatur
                             }
                         }
-                        
+
                         $spieler.angreifen($ziel, $spieler.angriffsschaden)
                         [Windows.Forms.MessageBox]::Show($spieler.spielerName + " greift " + $ziel.kreaturName + " an." + "`n" + $spieler.angriffsschaden + " Schaden zugefügt!", "Angriff")
                         $spieler.setCooldown($true)
@@ -299,7 +300,7 @@ while ($party.feld -lt $spielbrett.spielfelder.Count) {
                     }
                 }
             } ################################ foreach Ende
-        $party.checkCooldown($party)                    
+        $party.checkCooldown($party)
         }
         ########## Kreaturenaktionen
         ########## Kreaturencooldown?
@@ -322,13 +323,13 @@ while ($party.feld -lt $spielbrett.spielfelder.Count) {
                 }
             }
             ########## Sind alle Kreaturen auf Cooldown, so wird die Party wieder aktiv gesetzt
-            
+
             $spielbrett.spielfelder[$party.feld].checkCooldown($spielbrett, $party)
 
             foreach ($kreatur in $spielbrett.spielfelder[$party.feld].kreaturen) {
               $kreatur.setCooldown($false)
             }
-            
+
         }
         ############
         $spielbrett.spielfelder[$party.feld].cooldown = $false

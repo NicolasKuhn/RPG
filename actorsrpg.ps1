@@ -23,8 +23,8 @@ class Akteur {
       break
       }
     $ziel.setLebenspunkte($schaden)
-    
-    
+
+
   }
 
   setLebenspunkte($mod) {
@@ -40,7 +40,7 @@ class Akteur {
   $ergebnis += $modifikator
   $ergebnis
   }
-}   
+}
 
 
 class spielbrett {
@@ -63,20 +63,20 @@ class spielfeld {
         }
         if ($this.cooldown) {
           $party.cooldown = $false
-        }  
+        }
   }
 
 }
 
 class party {
-  
+
   $cooldown = $false
   $helden = [System.Collections.ArrayList]::new()
   [int]$feld = 0
   checkCooldown($party) {
         foreach($spieler in $party.helden) {
             $party.cooldown = $spieler.cooldown
-        }  
+        }
   }
 }
 

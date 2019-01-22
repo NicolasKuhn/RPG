@@ -1,4 +1,4 @@
-﻿."H:\12\AWP\MiniRPG_12FI3\actorsrpg.ps1"
+﻿.".\actorsrpg.ps1"
 
 cls
 class Spieler : Akteur { #Oberklasse
@@ -15,12 +15,12 @@ class Magier : Spieler { #Unterklasse -> erbt $spielername und angreifen()
   $this.angriffsschaden = 5
   $this.id = $id
   }
-  
+
   Heilen($ziel, $heilwert) {
     $ziel.setLebenspunkte(-$heilwert)
     $this.setCooldown()
-  } 
-  
+  }
+
 }
 
 class Krieger : Spieler {
@@ -54,9 +54,9 @@ class Schuetze : Spieler {
   }
 
   Fokus() {
-    $this.fokus++      
+    $this.fokus++
   }
-  
+
 
 }
 
