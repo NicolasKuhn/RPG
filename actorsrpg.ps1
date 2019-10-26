@@ -6,7 +6,7 @@ cooldown
 angreifen()
 setlebenspunkte()
 setcooldown()
-
+lolnureintestfuergit
 '############>
 
 class Akteur {
